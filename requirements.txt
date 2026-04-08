@@ -1,0 +1,6 @@
+python-dotenv
+tonsdk
+requests
+python-telegram-bot[job-queue]
+motor
+dnspython
