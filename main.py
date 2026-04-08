@@ -19,14 +19,19 @@ BASE_URL = "https://toncenter.com/api/v2"
 
 # --- WALLET ENGINE ---
 def get_wallet():
+    # keys တွေကို အရင်ထုတ်ယူပါ
     pub_key, priv_key = mnemonic_to_wallet_key(MNEMONIC)
-    # နာမည်တပ်မရေးဘဲ တိုက်ရိုက်ထည့်ခြင်းဖြင့် TypeError ကို ကျော်ဖြတ်ပါ
-    wallet = Wallets.create(
-        "v4r2",      # version
-        0,           # workchain
-        pub_key,     # public_key
-        priv_key     # private_key
-    )
+    
+    # version ကွဲလွဲမှုမရှိအောင် dictionary သုံးပြီး argument ထည့်ပါမယ်
+    wallet_args = {
+        "version": "v4r2",
+        "workchain": 0,
+        "public_key": pub_key,
+        "private_key": priv_key
+    }
+    
+    # Argument တွေကို unpack လုပ်ပြီး ထည့်သွင်းပါ
+    wallet = Wallets.create(**wallet_args)
     return wallet, priv_key
 
 def get_onchain_balance(address):
