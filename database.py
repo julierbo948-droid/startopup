@@ -3,7 +3,13 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
 
 load_dotenv()
-client = AsyncIOMotorClient(os.getenv("MONGO_URL"))
+
+# SSL handshaking error ကို ဖြေရှင်းပေးမယ့် code အသစ်
+client = AsyncIOMotorClient(
+    os.getenv("MONGO_URL"),
+    tls=True,
+    tlsAllowInvalidCertificates=True
+)
 db = client.star_bot_db
 users_col = db.users
 
