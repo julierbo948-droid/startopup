@@ -4,12 +4,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# SSL handshaking error ကို ဖြေရှင်းပေးမယ့် code အသစ်
+# URL ကို သေချာဖတ်နိုင်အောင် ကွင်းစကွင်းပိတ် သေချာစစ်ပါ
+mongo_url = os.getenv("MONGO_URL")
+
 client = AsyncIOMotorClient(
-    os.getenv("MONGO_URL"),
+    mongo_url,
     tls=True,
     tlsAllowInvalidCertificates=True
 )
+
 db = client.star_bot_db
 users_col = db.users
 
