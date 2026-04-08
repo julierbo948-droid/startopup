@@ -4,7 +4,7 @@ import logging
 import requests
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
-from tonsdk.contract.wallet import Wallets, WalletV4R2Revision1, WalletV4R2Revision2
+from tonsdk.contract.wallet import Wallets, WalletV4R2
 from tonsdk.crypto import mnemonic_to_wallet_key
 from tonsdk.utils import to_nano
 
@@ -19,9 +19,14 @@ BASE_URL = "https://toncenter.com/api/v2"
 
 # --- WALLET ENGINE ---
 def get_wallet():
-    pub_key, priv_key = mnemonic_to_wallet_key(MNEMONIC)
-    wallet = Wallets.create(WalletV4R2Revision, workchain=0, public_key=pub_key, private_key=priv_key)
-    return wallet, priv_key
+    # mnemonic_to_wallet_key ကို သုံးစရာမလိုဘဲ mnemonic list ကို တိုက်ရိုက်ထည့်တဲ့နည်း
+    # ဒါက Version အားလုံးမှာ Error ကင်းပါတယ်
+    _wallet = Wallets.from_mnemonic(
+        mnemonic=MNEMONIC,
+        version="v4r2",
+        workchain=0
+    )
+    return _wallet, _wallet.private_key
 
 def get_onchain_balance(address):
     url = f"{BASE_URL}/getAddressInformation?address={address}&api_key={API_KEY}"
