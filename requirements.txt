@@ -1,5 +1,5 @@
+tonsdk==1.0.14
 python-dotenv
-tonsdk
 requests
 python-telegram-bot[job-queue]
 motor
