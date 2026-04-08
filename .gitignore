@@ -1,0 +1,21 @@
+# --- လုံခြုံရေးအတွက် (အရေးကြီးဆုံး) ---
+.env
+*.json
+# (အကယ်၍ packages.json ကိုတော့ တင်ချင်တယ်ဆိုရင် အပေါ်က *.json အစား .env တစ်ခုတည်း ရေးပါ)
+
+# --- Python ယာယီဖိုင်များ ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+
+# --- Database ဖိုင်များ ---
+*.db
+*.sqlite3
+
+# --- Docker နှင့် OS ဖိုင်များ ---
+.DS_Store
+Thumbs.db
+*.log
