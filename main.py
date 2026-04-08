@@ -19,14 +19,17 @@ BASE_URL = "https://toncenter.com/api/v2"
 
 # --- WALLET ENGINE ---
 def get_wallet():
-    # mnemonic list ကို public key/private key အဖြစ် ပြောင်းပြီးသားဖြစ်စေ
-    # version="v4r2" ဆိုတာက သင့်အကောင့်အမျိုးအစားဖြစ်တဲ့ v4R2 ကို ခေါ်လိုက်တာပါ
-    _wallet = Wallets.from_mnemonic(
-        mnemonic=MNEMONIC,
-        version="v4r2",
-        workchain=0
+    # pub_key နဲ့ priv_key ကို mnemonic ကနေ အရင်ထုတ်ယူပါ
+    pub_key, priv_key = mnemonic_to_wallet_key(MNEMONIC)
+    
+    # Wallets.create ကို သုံးပြီး v4r2 wallet ကို တည်ဆောက်ပါ
+    wallet = Wallets.create(
+        version="v4r2", 
+        workchain=0, 
+        public_key=pub_key, 
+        private_key=priv_key
     )
-    return _wallet, _wallet.private_key
+    return wallet, priv_key
 
 def get_onchain_balance(address):
     url = f"{BASE_URL}/getAddressInformation?address={address}&api_key={API_KEY}"
