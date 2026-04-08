@@ -4,7 +4,7 @@ import logging
 import requests
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
-from tonsdk.contract.wallet import Wallets, WalletV4R2
+from tonsdk.contract.wallet import Wallets
 from tonsdk.crypto import mnemonic_to_wallet_key
 from tonsdk.utils import to_nano
 
@@ -19,8 +19,8 @@ BASE_URL = "https://toncenter.com/api/v2"
 
 # --- WALLET ENGINE ---
 def get_wallet():
-    # mnemonic_to_wallet_key ကို သုံးစရာမလိုဘဲ mnemonic list ကို တိုက်ရိုက်ထည့်တဲ့နည်း
-    # ဒါက Version အားလုံးမှာ Error ကင်းပါတယ်
+    # mnemonic list ကို public key/private key အဖြစ် ပြောင်းပြီးသားဖြစ်စေ
+    # version="v4r2" ဆိုတာက သင့်အကောင့်အမျိုးအစားဖြစ်တဲ့ v4R2 ကို ခေါ်လိုက်တာပါ
     _wallet = Wallets.from_mnemonic(
         mnemonic=MNEMONIC,
         version="v4r2",
